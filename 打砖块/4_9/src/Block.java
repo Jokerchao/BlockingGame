@@ -24,6 +24,7 @@ public class Block {
         }
 
         exist = new boolean[num];
+        hp=new int[num];
         for (int i = 0; i < num; i++) {
             exist[i] = true;
             hp[i]=2;
@@ -40,5 +41,14 @@ public class Block {
                 g.fillRect(location[i].x, location[i].y, size.x, size.y);
             }
         }
+        for (int i = 0; i < num; i++) {
+            if (hp[i] == 1) {
+                g.setColor(Color.red);
+                g.fillRect(location[i].x, location[i].y, size.x, size.y);
+            }
+        }
+
+
+
     }
 }

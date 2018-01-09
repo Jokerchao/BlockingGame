@@ -97,7 +97,10 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
         }
         if(myball.hp==0){
             gameOver=true;
+            //System.out.println(myball.score);
+
         }
+
     }
 
 

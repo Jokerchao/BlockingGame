@@ -1,10 +1,9 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 
 public class Ball {
 
     public int hp;
+    public int score;
     private Point location;
     private int diameter;
     private int dx;
@@ -20,6 +19,7 @@ public class Ball {
         blk = bk;
         pd = p;
         diameter = 20;
+        score=0;
         hp=3;
         location = new Point(pd.location.x + (pd.size.x - diameter) / 2, pd.location.y - pd.size.y);
 
@@ -42,7 +42,13 @@ public class Ball {
 
     public void draw(Graphics g) {
         g.setColor(Color.blue);
+        g.setFont(new Font("宋体", Font.BOLD, 45));
         g.fillOval(location.x, location.y, diameter, diameter);
+        String result="你的得分为："+score;
+        if(gameP.gameOver==true){
+            g.clearRect(0,0,gameP.width,gameP.heigth);
+            g.drawString(result,50,50);
+        }
     }
 
     public boolean Bounce(Point bk_location, Point bk_size) {
@@ -88,8 +94,12 @@ public class Ball {
 
             if (Bounce(local2, size2)) {
                 dy = -dy;
-                blk.exist[i] = false;
                 padCanBounce = true;
+                blk.hp[i]--;
+                score++;
+                if(blk.hp[i]==0){
+                    blk.exist[i] = false;
+                }
 
             } else if (Bounce(local1, size1)) {
                 if (dx > 0) {
@@ -97,7 +107,11 @@ public class Ball {
                 } else {
                     dy = -dy;
                 }
-                blk.exist[i] = false;
+                blk.hp[i]--;
+                score++;
+                if(blk.hp[i]==0){
+                    blk.exist[i] = false;
+                }
                 padCanBounce = true;
             } else if (Bounce(local3, size3)) {
                 if (dx < 0) {
@@ -105,7 +119,11 @@ public class Ball {
                 } else {
                     dy = -dy;
                 }
-                blk.exist[i] = false;
+                blk.hp[i]--;
+                score++;
+                if(blk.hp[i]==0){
+                    blk.exist[i] = false;
+                }
                 padCanBounce = true;
             }
         }
