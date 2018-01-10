@@ -7,6 +7,7 @@ import java.util.*;
 public class GamePanel extends Panel implements Runnable, KeyListener {
     public int width;
     public int heigth;
+    public int stage;
     private Image im;
     private Graphics dbg;
     private Thread gamethread;
@@ -20,10 +21,12 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
     public boolean ballMove = false;
     public boolean gameOver = false;
     public boolean reStart = false;
+    public boolean nextStage = false;
 
     public GamePanel() {
         width = 400;
         heigth = 400;
+        stage=1;
         setBackground(Color.pink);
         setPreferredSize(new Dimension(width, heigth));
 
@@ -49,6 +52,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
             g = this.getGraphics();
             if (g != null && im != null) {
                 g.drawImage(im, 0, 0, null);
+                //g.drawString("第"+stage+"关",20,290);
             }
             g.dispose();
         } catch (Exception e) {
@@ -66,6 +70,8 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
         }
         dbg.setColor(Color.white);
         dbg.fillRect(0, 0, width, heigth);
+        dbg.setColor(Color.black);
+        dbg.drawString("第"+stage+"关",20,290);
         myblock.draw(dbg);
         myball.draw(dbg);
         mypad.draw(dbg);
@@ -75,12 +81,21 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
 
     public void gameUpdate() {
         isGameOver();
+        if(nextStage){
+            reSetGame();
+            nextStage = false;
+            gameOver = false;
+            ballMove = false;
+        }
         if (reStart) {
+            stage=1;
             reSetGame();
             reStart = false;
             gameOver = false;
             ballMove = false;
         }
+
+
         if (!gameOver) {
                mypad.update();
                myblock.update();
@@ -99,7 +114,8 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
             }
         }
         if (countBlock == 0) {
-            gameOver = true;
+            stage++;
+            nextStage = true;
         }
         if(myball.hp==0){
             gameOver=true;
@@ -144,6 +160,9 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
         }
         if (keycode == KeyEvent.VK_SPACE) {
             ballMove = true;
+        }
+        if (keycode == KeyEvent.VK_U) {
+            stage++;
         }
         if (keycode == KeyEvent.VK_R) {
             if (gameOver) {

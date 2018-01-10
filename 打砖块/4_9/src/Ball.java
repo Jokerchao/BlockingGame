@@ -27,12 +27,12 @@ public class Ball {
         bonus=bns;
         diameter = 20;
         score=0;
-        hp=1000;
+        hp=3;
         blockCanBounce=true;
         location = new Point(pd.location.x + (pd.size.x - diameter) / 2, pd.location.y - pd.size.y);
 
-        dx = 5;
-        dy = -5;
+        dx =5+gameP.stage;
+        dy = -5-gameP.stage;
     }
 
     public void update() {
@@ -50,10 +50,10 @@ public class Ball {
     }
 
     public void draw(Graphics g) {
+
         g.setColor(Color.blue);
         g.setFont(new Font("宋体", Font.BOLD, 45));
         g.fillOval(location.x, location.y, diameter, diameter);
-
         String result="你的得分为："+score;
         if(gameP.gameOver==true){
             g.clearRect(0,0,gameP.width,gameP.heigth);
