@@ -32,6 +32,7 @@ public class Bonus {
     public void draw(Graphics g) {
         g.setColor(Color.gray);
         if(exist){
+            g.clearRect(location.x, location.y, size.x, size.y);
             g.fillRect(location.x, location.y, size.x, size.y);
         }
         if(hp==1){

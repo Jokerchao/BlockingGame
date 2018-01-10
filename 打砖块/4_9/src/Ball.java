@@ -52,12 +52,12 @@ public class Ball {
     public void draw(Graphics g) {
 
         g.setColor(Color.blue);
-        g.setFont(new Font("宋体", Font.BOLD, 45));
+        g.setFont(new Font("宋体", Font.BOLD, 30));
         g.fillOval(location.x, location.y, diameter, diameter);
         String result="你的得分为："+score;
         if(gameP.gameOver==true){
-            g.clearRect(0,0,gameP.width,gameP.heigth);
-            g.drawString(result,50,50);
+            //g.clearRect(0,0,gameP.width,gameP.heigth);
+            g.drawString(result,100,250);
         }
     }
 
