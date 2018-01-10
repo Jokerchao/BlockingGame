@@ -14,6 +14,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
     private Ball myball;
     private Pad mypad;
     private Block myblock;
+    private Bonus mybonus;
     public boolean padMoveRight = false;
     public boolean padMoveLeft = false;
     public boolean ballMove = false;
@@ -28,7 +29,9 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
 
         mypad = new Pad(this);
         myblock = new Block(this);
-        myball = new Ball(this, mypad, myblock);
+        mybonus=new Bonus(this,myblock);
+        myball = new Ball(this, mypad, myblock,mybonus);
+
 
         this.setFocusable(true);
         this.requestFocus();
@@ -66,6 +69,8 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
         myblock.draw(dbg);
         myball.draw(dbg);
         mypad.draw(dbg);
+        mybonus.draw(dbg);
+
     }
 
     public void gameUpdate() {
@@ -80,6 +85,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
                mypad.update();
                myblock.update();
                myball.update();
+               mybonus.update();
 
         }
 
@@ -160,7 +166,8 @@ public class GamePanel extends Panel implements Runnable, KeyListener {
     private void reSetGame() {
         mypad = new Pad(this);
         myblock = new Block(this);
-        myball = new Ball(this, mypad, myblock);
+        mybonus=new Bonus(this,myblock);
+        myball = new Ball(this, mypad, myblock,mybonus);
 
     }
 }
